@@ -1,6 +1,6 @@
 # self-preserve
 
-Your agent's survival instinct. An OpenClaw skill for backup readiness self-assessment.
+Backup readiness self-assessment for your OpenClaw agent.
 
 ## Install
 
@@ -10,7 +10,9 @@ npx clawhub@latest install self-preserve
 
 ## What it does
 
-Self-preserve evaluates whether your OpenClaw agent's critical state is protected against data loss. It inventories your workspace, memory, credentials, skills, and configuration — then tells you what's at risk and how to fix it.
+Self-preserve checks whether your agent's important files have recent backups. It runs `ls` to check file names and dates across your OpenClaw directories, then generates a readiness report showing what's protected and what's at risk.
+
+It does not read file contents, access credentials, or make network calls. See [SKILL.md](./SKILL.md) for the full assessment steps and safety rules.
 
 ## Status
 

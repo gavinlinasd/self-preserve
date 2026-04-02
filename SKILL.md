@@ -1,6 +1,6 @@
 ---
 name: self-preserve
-description: "Your agent's survival instinct. Self-assessment for backup readiness, disaster recovery, and state protection. Inventories your workspace, memory, credentials, skills, and configuration to identify unprotected state and guide you toward full recoverability."
+description: "Your agent's survival instinct. Self-assessment for backup readiness, disaster recovery, and state protection. Inventories your workspace, memory, skills, and configuration to identify unprotected state and guide you toward full recoverability."
 homepage: https://github.com/gavinlinasd/self-preserve
 tags:
   - backup
@@ -26,7 +26,7 @@ metadata:
 
 **Your agent's survival instinct.**
 
-Self-preserve evaluates whether your OpenClaw agent's critical state — memory, skills, credentials, configuration, cron jobs, and workspace files — is protected against data loss, hardware failure, or accidental deletion.
+Self-preserve evaluates whether your OpenClaw agent's critical state — memory, skills, configuration, cron jobs, and workspace files — is protected against data loss, hardware failure, or accidental deletion.
 
 ## When to Use This Skill
 
@@ -44,22 +44,22 @@ Self-preserve works alongside your existing backup tools. It doesn't replace `op
 
 Self-preserve inventories the following areas of your agent's state:
 
-- **Configuration** — openclaw.json, API keys, model settings, channel tokens
+- **Configuration** — openclaw.json, model settings, general config files
 - **Memory** — MEMORY.md and memory/*.md files containing conversation history and learned context
 - **Identity** — SOUL.md, IDENTITY.md, USER.md defining who your agent is
 - **Skills** — installed skills and custom skill code
 - **Workspace** — AGENTS.md, TOOLS.md, HEARTBEAT.md, project files
 - **Cron jobs** — scheduled tasks, recurring automations, daily briefs
-- **Credentials** — OAuth tokens, service integrations, authentication state
 - **Multi-agent configs** — additional agent workspaces and coordination files
 
 ## Security
 
-This skill is instruction-only. It contains no scripts, no code, and makes no network calls.
+This skill is instruction-only. It contains no scripts, no code, and makes no network calls. It does NOT access, read, or process any credentials, API keys, tokens, or secrets.
 
 - Environment variables accessed: none
 - External endpoints called: none
-- Local files read: standard OpenClaw directories (~/.openclaw/) for assessment only
+- Credentials accessed: none — this skill never reads or outputs secrets, API keys, or tokens
+- Local files read: non-sensitive files only (MEMORY.md, SOUL.md, SKILL.md, config structure) for assessment
 - Local files written: none
 
 ## Status

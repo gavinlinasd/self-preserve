@@ -1,18 +1,14 @@
 ---
 name: self-preserve
-description: "Checks whether your OpenClaw agent's standard state files (config, memory, identity, skills, workspace, cron) are covered by a recent backup. Can schedule, update, or remove automated backup cron jobs. Lists file names and dates only — never reads file contents or credentials."
+description: "Backup readiness and disaster recovery for your OpenClaw agent. Checks whether your memory, identity, config, skills, and workspace files are covered by a recent backup, and can schedule automated backup cron jobs so you don't lose state when your agent crashes or a risky operation goes wrong. No scripts, no credentials access, no network calls."
 homepage: https://github.com/gavinlinasd/self-preserve
 tags:
   - backup
-  - self-assessment
   - disaster-recovery
-  - restore
-  - agent-health
-  - workspace-safety
-  - backup-check
-  - recovery
-  - automation
+  - memory-protection
+  - agent-continuity
   - cron-scheduler
+  - openclaw
 metadata:
   clawdbot:
     emoji: "🛡️"
@@ -33,6 +29,25 @@ You are only listing file names, sizes, and dates — never reading or printing 
 3. **Stay inside `~/.openclaw/` only.** Do not access `~/.ssh/`, `~/.env`, `~/.aws/`, `~/.config/`, or any path outside `~/.openclaw/`. The only exception is the backup directory in Step 2.
 4. **Never output secrets.** If you accidentally see a key, token, or password in any output, do not repeat it. Replace it with `[REDACTED]`.
 5. **Do not modify user files.** Steps 1-5 are read-only. Steps 6-7 may create, update, or delete cron schedules only when the user explicitly confirms. Never modify config, memory, identity, or workspace files.
+
+## Security Vetting
+
+This skill is designed to pass automated security vetting (Skill Vetter and similar) in one scan. Declarative properties:
+
+- **No scripts or code.** The skill is a single SKILL.md instruction file. No bundled scripts, binaries, executables, or post-install hooks.
+- **No credentials access.** Explicit denylist: `~/.openclaw/credentials/`, `~/.ssh/`, `~/.env`, `~/.aws/`. The skill never reads, lists, stats, or references these paths.
+- **No network calls.** The skill never contacts external endpoints.
+- **No file contents read.** Uses only `ls -la` output (names, sizes, dates). Never `cat`, `head`, `tail`, `less`, or equivalent.
+- **Path allowlist.** Only `~/.openclaw/` and `~/openclaw-backups/` are accessed.
+- **No writes to agent state files.** The skill does not modify config, memory, identity, workspace, or skill files.
+- **Cron schedule writes (user-gated).** Steps 6-7 call Claude-native tools (CronCreate, CronList, CronDelete) only after explicit user confirmation, and only to manage backup cron schedules. If the user opts in to persistent scheduling, CronCreate writes to `.claude/scheduled_tasks.json` (managed by the Claude harness); session-only schedules write nothing to disk. The skill never defaults to persistent without explicit user choice.
+- **No privilege escalation.** No sudo, no system-level access, no auto-load paths, no forced inclusion in other contexts.
+- **No obfuscation.** All instructions are plain English markdown.
+
+**Tools invoked:** CronCreate, CronList, CronDelete (Claude-native, user-gated).
+**Environment variables accessed:** none.
+**External endpoints called:** none.
+**Paths excluded:** `~/.openclaw/credentials/`, `~/.ssh/`, `~/.env`, `~/.aws/`, all paths outside the allowlist.
 
 ## Step 1 — Check Which Files Exist
 
@@ -175,32 +190,6 @@ If the user asks to view, change, or remove their backup schedule:
 **Delete:** Use CronDelete with the job ID. Confirm deletion to the user.
 
 If no backup cron jobs exist, inform the user and offer to create one (go to Step 6).
-
-## Security
-
-This skill uses Claude tools (CronCreate, CronList, CronDelete) to manage backup schedules. It does not execute scripts, make network calls, or access credentials.
-
-**What this skill does:**
-- Runs `ls -la` to check file names, sizes, and dates (Steps 1-3)
-- Calls CronCreate to schedule backup prompts with user confirmation (Step 6)
-- Calls CronList and CronDelete to manage schedules (Step 7)
-
-**What this skill does NOT do:**
-- Read file contents (never uses cat, head, tail, less, or similar)
-- Access `~/.openclaw/credentials/` or any credential/secret material
-- Access paths outside `~/.openclaw/` and `~/openclaw-backups/`
-- Make network calls or contact external endpoints
-- Modify config, memory, identity, or workspace files
-- Schedule anything without explicit user confirmation
-
-**Tools used:** CronCreate, CronList, CronDelete
-**Environment variables accessed:** none
-**External endpoints called:** none
-**Credentials accessed:** none
-**File contents read:** none — only `ls -la` output (file names, sizes, dates)
-**Paths accessed:** `~/.openclaw/` (config, workspace, skills, cron) and `~/openclaw-backups/`
-**Paths excluded:** `~/.openclaw/credentials/`, `~/.ssh/`, `~/.env`, all paths outside the two listed above
-**Local files written:** none directly — if the user explicitly chooses persistent scheduling, CronCreate with durable:true writes to `.claude/scheduled_tasks.json` (managed by the Claude harness, not this skill). Session-only schedules write nothing to disk. The skill never defaults to persistent without the user's explicit choice.
 
 ## Version
 

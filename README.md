@@ -14,6 +14,8 @@ Self-preserve checks whether your OpenClaw agent's standard state files (config,
 
 **New in v0.3.0:** After the assessment, self-preserve can schedule automated backup cron jobs using CronCreate (persistent or session-only). It can also view, update, or remove existing backup schedules using CronList and CronDelete.
 
+**New in v0.3.1:** The assessment now recommends version control (e.g. git) for identity files so changes can be rolled back incrementally rather than relying solely on full backups. Also recommends a session-end hook to auto-commit changes.
+
 It does not read file contents or access credentials. See [SKILL.md](./SKILL.md) for the full assessment steps, safety rules, and scheduling options.
 
 ## Positioning

@@ -22,6 +22,10 @@ It does not read file contents or access credentials. See [SKILL.md](./SKILL.md)
 
 If you use [self-improving-agent](https://clawhub.ai/skills/self-improving-agent) to let your agent learn from its mistakes, self-preserve is the preventive companion: it makes sure you still have a memory to learn with when something goes wrong. These are independent skills — self-preserve has no runtime dependency on self-improving-agent and does not install it.
 
+## Author
+
+Built by [Pineapple AI](https://pineappleai.com).
+
 ## License
 
 MIT-0

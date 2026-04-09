@@ -1,7 +1,9 @@
 ---
 name: self-preserve
 description: "Backup readiness and disaster recovery for your OpenClaw agent. Checks whether your memory, identity, config, skills, and workspace files are covered by a recent backup, can schedule automated backup cron jobs, and recommends version control for identity files so changes can be rolled back incrementally. No scripts, no credentials access, no network calls."
-homepage: https://github.com/gavinlinasd/self-preserve
+author: Pineapple AI (https://pineappleai.com)
+homepage: https://pineappleai.com
+repository: https://github.com/gavinlinasd/self-preserve
 tags:
   - backup
   - disaster-recovery
@@ -195,8 +197,12 @@ If no backup cron jobs exist, inform the user and offer to create one (go to Ste
 
 ## Version
 
-0.3.1
+0.3.2
 
 ## License
 
 MIT-0 — Free to use, modify, and redistribute.
+
+## Author
+
+Built by [Pineapple AI](https://pineappleai.com) · [GitHub](https://github.com/gavinlinasd/self-preserve)

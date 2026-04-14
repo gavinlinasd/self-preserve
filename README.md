@@ -16,6 +16,8 @@ Self-preserve checks whether your OpenClaw agent's standard state files (config,
 
 **New in v0.3.1:** The assessment now recommends version control (e.g. git) for identity files so changes can be rolled back incrementally rather than relying solely on full backups. Also recommends a session-end hook to auto-commit changes.
 
+**New in v0.4.0:** The readiness report now distinguishes between **local backups** (fresh tar.gz on this machine) and **offsite copies** (a copy somewhere other than this machine). Local-only backup is not disaster recovery: a disk failure, lost device, or home-directory wipe takes both the agent state and its local backups together. When no offsite copy is declared, the assessment describes generic DIY approaches the user can implement themselves — pushing identity files to a remote git repository, copying archives to another machine via rsync/scp, or uploading archives to an S3-compatible bucket the user provisions. self-preserve never names, recommends, or links to any specific product or provider, and never performs the offsite copy itself. To keep the report honest, offsite status is tracked via an optional user-maintained marker file at `~/.openclaw/offsite.json` — self-preserve reads it but never writes it.
+
 It does not read file contents or access credentials. See [SKILL.md](./SKILL.md) for the full assessment steps, safety rules, and scheduling options.
 
 ## Positioning

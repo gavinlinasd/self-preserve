@@ -1,8 +1,8 @@
-# self-preserve
+# self-preserve [![Downloads](https://skill-history.com/badge/gavinlinasd/self-preserve.svg)](https://skill-history.com/gavinlinasd/self-preserve)
 
 Backup readiness and disaster recovery for your OpenClaw agent. Makes sure you don't lose memory, identity, or configuration when your agent crashes or a risky operation goes wrong.
 
-[![Download history](https://skill-history.com/chart/gavinlinasd/self-preserve.svg)](https://skill-history.com/gavinlinasd/self-preserve)
+
 
 ## Install
 
@@ -35,3 +35,7 @@ Built by [Pineapple AI](https://pineappleai.com).
 ## License
 
 MIT-0
+
+## Download History
+
+[![Download history](https://skill-history.com/chart/gavinlinasd/self-preserve.svg)](https://skill-history.com/gavinlinasd/self-preserve)

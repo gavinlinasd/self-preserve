@@ -252,7 +252,7 @@ If the user asks self-preserve to create the marker, decline politely and explai
 
 ## Version
 
-0.4.0
+1.0.0
 
 ## License
 
